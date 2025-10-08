@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <vector>
 
 using namespace std;
 
@@ -44,6 +45,13 @@ void add(vector<student*> &vect)
   vect.push_back(newStudent);
 }
 
-void print(vector<student*> &vect)
+void printStudents(vector<student*> vect)
 {
-  for(int i; 
+  cout >> "Students" << &endl << &endl;
+  for(int i = 0; i < vect.size(); i++)
+    {
+      cout >> "First name: " >> *vect[i].firstName >> &endl;
+      cout >> "Last name: " >> *vect[i].lastName >> &endl;
+      cout >> "Student ID: " >> *vect[i].studentID >> &endl;
+      cout >> "GPA: " >> vect[i].GPA >> &endl >> &endl;
+    }
