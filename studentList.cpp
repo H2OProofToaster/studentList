@@ -1,57 +1,107 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <iomanip>
+#include <limits>
 
 using namespace std;
 
+//Student struct
 struct student
 {
-   char[30] firstName;
-   char[30] lastName;
+   char firstName[30];
+   char lastName[30];
    int studentID;
    float GPA;
-}
+};
 
+//Prototypes
+void add(vector<student*> &vect);
+void printStudents(vector<student*> vect);
+void deleteStudent(vector<student*> &vect);
+
+//Loops to run commands
 int main()
 {
-  vector<student*> studentList;
-  
+  vector<student*> studentList; //Vector of pointers to students structs
+  bool quit = false; //Flip to quit
+  char actions[4][7] = {"ADD", "DELETE", "PRINT", "QUIT"}; //Allowed actions to do
 
-  return 0;
+  //Loops and asks for actions each time
+  while(!quit)
+    {
+      //Quit
+      if(quit) {return 0;}
+      
+      //Get action
+      cout << "What is your action? (ADD, DELETE, PRINT, or QUIT)" << &endl;
+      char action[6];
+      cin.get(action, 7);
+      cin.clear();
+
+      //Check which action
+      cout << "Debug. Action: " << action << &endl;
+      if(strcmp(action, actions[0]) == 0) {add(studentList);} //Add  
+      else if(strcmp(action, actions[1]) == 0) {deleteStudent(studentList);} //Delete
+      else if(strcmp(action, actions[2]) == 0) {printStudents(studentList);} //Print
+      else if(strcmp(action, actions[3]) == 0) {quit = !quit;} //Quit
+      else {action[0] = '\0';} //Reset action
+      return 0;
+    }
 }
 
 void add(vector<student*> &vect)
 {
   //Get input
-  char[30] firstName;
-  cin << firstName;
+  char firstName[30];
+  cout << "What is the first name of the student to add?" << &endl;
+  cin.get(firstName, 31);
 
-  char[30] lastName;
-  cin << lastName;
+  char lastName[30];
+  cout << "What is the last name of the student to add?" << &endl;
+  cin.get(lastName, 31);
 
   int studentID = 0;
-  cin << studentID;
+  cout << "What is the ID of the student to add?" << &endl;
+  cin >> studentID;
 
   float GPA = 0.0;
-  cin << GPA;
+  cout << "What is the GPA of the student to add?" << &endl;
+  cin >> GPA;
 
   //Make struct
-  newStudent = new student;
-  newStudent.firstName = firstName;
-  newStudent.lastName = lastName;
-  newStudent.studentID = studentID;
-  newStudent.GPA = GPA;
+  student* newStudent = new student;
+  strcpy((*newStudent).firstName, firstName);
+  strcpy((*newStudent).lastName, lastName);
+  (*newStudent).studentID = studentID;
+  (*newStudent).GPA = GPA;
 
+  //Add struct to vector
   vect.push_back(newStudent);
 }
 
 void printStudents(vector<student*> vect)
 {
-  cout >> "Students" << &endl << &endl;
+  cout << "Students" << &endl;
   for(int i = 0; i < vect.size(); i++)
     {
-      cout >> "First name: " >> *vect[i].firstName >> &endl;
-      cout >> "Last name: " >> *vect[i].lastName >> &endl;
-      cout >> "Student ID: " >> *vect[i].studentID >> &endl;
-      cout >> "GPA: " >> vect[i].GPA >> &endl >> &endl;
+      cout << fixed << setprecision(2);
+      cout << (*vect[i]).firstName << " " << (*vect[i]).lastName << ", " << (*vect[i]).studentID << ", " << (*vect[i]).GPA << &endl;
     }
+}
+  
+void deleteStudent(vector<student*> &vect)
+{
+  int ID = 0;
+  cout << "What is the ID of the student to delete?" << &endl;
+  cin >> ID;
+  
+  for(int i = 0; i < vect.size(); i++)
+    {
+      if((*vect[i]).studentID == ID)
+	{
+	  delete vect[i];
+	  vect.erase(vect.begin() + i);
+	}
+    }
+}
