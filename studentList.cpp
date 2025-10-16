@@ -113,6 +113,7 @@ void deleteStudent(vector<student*> &vect)
 	{
 	  delete vect[i];
 	  vect.erase(vect.begin() + i);
+	  return;
 	}
     }
 }
