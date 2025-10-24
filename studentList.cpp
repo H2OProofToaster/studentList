@@ -38,19 +38,24 @@ int main()
   
       //Get action
       cout << "What is your action? (ADD, DELETE, PRINT, or QUIT)" << &endl;
-      char action[6];
+      char action[7];
       cin.get(action, 7);
 
       //Print which action
       //cout << "Debug; action: " << action << &endl;
 
-      if(strcmp(action, actions[0]) == 0) {add(studentList);} //Add  
-      else if(strcmp(action, actions[1]) == 0) {deleteStudent(studentList);} //Delete
-      else if(strcmp(action, actions[2]) == 0) {printStudents(studentList);} //Print
-      else if(strcmp(action, actions[3]) == 0) {quit = !quit;} //Quit
-
-      action[0] = '\0'; //Reset action
-
+      if(strcmp(action, actions[0]) == 0) {/*cout << "ran add" << &endl; */add(studentList);} //Add  
+      else if(strcmp(action, actions[1]) == 0) {/*cout << "ran delete" << &endl; */deleteStudent(studentList);} //Delete
+      else if(strcmp(action, actions[2]) == 0) {/*cout << "ran print" << &endl; */printStudents(studentList);} //Print
+      else if(strcmp(action, actions[3]) == 0) {/*cout << "ran quit" << &endl; */quit = !quit;} //Quit
+      else {cout << "no action" << &endl;}
+      
+      //Reset action
+      for(int i = 0; i++; i < strlen(action))
+	{
+	  action[i] = '\0';
+	}
+      
       //iterations++;
     }
 }
